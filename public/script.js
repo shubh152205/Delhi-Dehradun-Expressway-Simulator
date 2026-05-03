@@ -70,23 +70,35 @@ function initButtons() {
 }
 
 // ─── Connection & Graph Data ───────────────────
-async function fetchGraphData() {
+async function fetchGraphData(retries = 5) {
     const status = document.getElementById("conn-status");
-    try {
-        const res = await fetch(`${API}/graph-data`);
-        if (!res.ok) throw new Error("Server error");
-        const data = await res.json();
+    
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            const res = await fetch(`${API}/graph-data`);
+            if (!res.ok) throw new Error("Server error");
+            const data = await res.json();
 
-        status.classList.add("connected");
-        status.querySelector("span").textContent = "Backend Online";
+            status.classList.remove("error");
+            status.classList.add("connected");
+            status.querySelector("span").textContent = "Backend Online";
 
-        document.getElementById("stat-nodes").textContent = data.nodes.length;
-        document.getElementById("stat-edges").textContent = data.edges.length;
+            document.getElementById("stat-nodes").textContent = data.nodes.length;
+            document.getElementById("stat-edges").textContent = data.edges.length;
 
-        populateSelects(data.nodes);
-    } catch {
-        status.classList.add("error");
-        status.querySelector("span").textContent = "Backend Offline";
+            populateSelects(data.nodes);
+            return; // success
+        } catch {
+            status.classList.remove("connected");
+            status.classList.add("error");
+            status.querySelector("span").textContent = attempt < retries 
+                ? `Connecting... (${attempt}/${retries})` 
+                : "Backend Offline";
+            
+            if (attempt < retries) {
+                await new Promise(r => setTimeout(r, 3000));
+            }
+        }
     }
 }
 

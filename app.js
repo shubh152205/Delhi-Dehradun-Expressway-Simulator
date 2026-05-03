@@ -8,7 +8,11 @@ const PORT = process.env.PORT || 3000;
 // Proxy API requests to the C++ backend
 app.use('/api', createProxyMiddleware({ 
     target: 'http://127.0.0.1:8080', 
-    changeOrigin: true 
+    changeOrigin: true,
+    onError: (err, req, res) => {
+        console.error("Proxy error:", err.message);
+        res.status(502).json({ error: "Backend is offline or unreachable." });
+    }
 }));
 
 // Serve the public directory as static files

@@ -12,3 +12,5 @@ backend/json.hpp
 # OS files
 .DS_Store
 Thumbs.db
+app.pid
+server.pid
