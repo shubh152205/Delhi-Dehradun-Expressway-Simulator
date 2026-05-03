@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Backend build artifacts
+backend/server
+backend/*.o
+
+# Header-only libraries (large, downloaded at build time)
+backend/httplib.h
+backend/json.hpp
+
+# OS files
+.DS_Store
+Thumbs.db
