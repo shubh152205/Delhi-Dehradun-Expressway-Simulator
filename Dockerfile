@@ -1,7 +1,7 @@
 # Stage 1: Build the C++ backend
-FROM gcc:latest AS builder
+FROM node:20-slim AS builder
 WORKDIR /app/backend
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y g++ make curl
 COPY backend/server.cpp backend/Makefile ./
 RUN curl -L -o httplib.h https://raw.githubusercontent.com/yhirose/cpp-httplib/master/httplib.h && \
     curl -L -o json.hpp https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp && \
