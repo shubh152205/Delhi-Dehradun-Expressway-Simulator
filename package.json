@@ -7,11 +7,18 @@
     "start": "node app.js",
     "dev": "node app.js"
   },
-  "keywords": ["expressway", "dijkstra", "kruskal", "bellman-ford", "simulator"],
+  "keywords": [
+    "expressway",
+    "dijkstra",
+    "kruskal",
+    "bellman-ford",
+    "simulator"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "http-proxy-middleware": "^3.0.5"
   }
 }

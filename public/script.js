@@ -2,7 +2,7 @@
    Delhi-Dehradun Expressway Simulator — Frontend Logic
    =================================================== */
 
-const API = "http://localhost:8080/api";
+const API = "/api";
 
 // ─── Tab Metadata ──────────────────────────────
 const TAB_META = {
