@@ -1,0 +1,8 @@
+node_modules
+backend/server
+backend/httplib.h
+backend/json.hpp
+backend/*.o
+.git
+.gitignore
+README.md

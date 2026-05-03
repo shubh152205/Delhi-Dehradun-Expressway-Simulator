@@ -8,6 +8,7 @@
 #include <limits>
 #include <algorithm>
 #include <numeric>
+#include <cstdlib>
 
 using json = nlohmann::json;
 
@@ -320,7 +321,18 @@ void loadGraphData(const std::string& filepath) {
 }
 
 int main() {
-    loadGraphData("../expressway.txt");
+    // Try multiple paths for flexibility (local dev vs Docker)
+    const char* envPath = std::getenv("EXPRESSWAY_DATA");
+    std::string dataFile = envPath ? envPath : "../expressway.txt";
+    
+    std::ifstream testFile(dataFile);
+    if (!testFile.is_open()) {
+        dataFile = "./expressway.txt";
+    } else {
+        testFile.close();
+    }
+    
+    loadGraphData(dataFile);
 
     httplib::Server svr;
 
