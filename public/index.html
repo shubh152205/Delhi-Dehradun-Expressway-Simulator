@@ -5,21 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delhi-Dehradun Expressway Simulator</title>
     <meta name="description" content="Interactive simulator demonstrating Dijkstra, Kruskal, Fenwick Tree, Bloom Filter, Top-K, and Bellman-Ford algorithms on the Delhi-Dehradun Expressway network.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+
+    <!-- Organic decorative blobs -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Marquee ticker strip -->
+    <div class="marquee-strip">
+        <div class="marquee-track">
+            <span>Shortest Path · Minimum Spanning Tree · Fenwick Tree · Bloom Filter · Top-K Analytics · Bellman-Ford ·&nbsp;</span>
+            <span>Shortest Path · Minimum Spanning Tree · Fenwick Tree · Bloom Filter · Top-K Analytics · Bellman-Ford ·&nbsp;</span>
+        </div>
+    </div>
 
     <div id="app">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo-mark">
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                        <rect width="28" height="28" rx="8" fill="url(#lg)"/>
-                        <path d="M7 14h14M14 7v14M9 9l10 10M19 9l-10 10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
-                        <circle cx="14" cy="14" r="3" fill="#fff"/>
-                        <defs><linearGradient id="lg" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                        <circle cx="18" cy="18" r="18" fill="#C8E6A0" opacity=".5"/>
+                        <circle cx="18" cy="18" r="12" fill="#2D5016" opacity=".15"/>
+                        <path d="M12 18c0-4 3-8 6-10 3 2 6 6 6 10s-3 8-6 10c-3-2-6-6-6-10z" fill="#2D5016" opacity=".6"/>
+                        <circle cx="18" cy="18" r="3" fill="#2D5016"/>
                     </svg>
                 </div>
                 <div class="logo-text">
@@ -29,36 +43,42 @@
             </div>
 
             <nav class="nav-menu">
-                <button class="nav-item active" data-tab="dijkstra">
+                <button class="nav-item active" data-tab="dijkstra" id="nav-dijkstra">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <span>Shortest Path</span><span class="nav-tag">DIJKSTRA</span>
+                    <span>Shortest Path</span>
+                    <span class="nav-tag">Dijkstra</span>
                 </button>
-                <button class="nav-item" data-tab="mst">
+                <button class="nav-item" data-tab="mst" id="nav-mst">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                    <span>Spanning Tree</span><span class="nav-tag">KRUSKAL</span>
+                    <span>Spanning Tree</span>
+                    <span class="nav-tag">Kruskal</span>
                 </button>
-                <button class="nav-item" data-tab="toll">
+                <button class="nav-item" data-tab="toll" id="nav-toll">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                    <span>Toll Manager</span><span class="nav-tag">FENWICK</span>
+                    <span>Toll Manager</span>
+                    <span class="nav-tag">Fenwick</span>
                 </button>
-                <button class="nav-item" data-tab="bloom">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="4" y="7" width="16" height="6" rx="1" opacity=".5"/></svg>
-                    <span>Vehicle Tracker</span><span class="nav-tag">BLOOM</span>
+                <button class="nav-item" data-tab="bloom" id="nav-bloom">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    <span>Vehicle Tracker</span>
+                    <span class="nav-tag">Bloom</span>
                 </button>
-                <button class="nav-item" data-tab="topk">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
-                    <span>Revenue Top-K</span><span class="nav-tag">HEAP</span>
+                <button class="nav-item" data-tab="topk" id="nav-topk">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+                    <span>Revenue Top-K</span>
+                    <span class="nav-tag">Heap</span>
                 </button>
-                <button class="nav-item" data-tab="bellman">
+                <button class="nav-item" data-tab="bellman" id="nav-bellman">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                    <span>Cycle Detect</span><span class="nav-tag">BELLMAN</span>
+                    <span>Cycle Detect</span>
+                    <span class="nav-tag">Bellman</span>
                 </button>
             </nav>
 
             <div class="sidebar-footer">
                 <div class="connection-status" id="conn-status">
                     <div class="status-dot"></div>
-                    <span>Checking...</span>
+                    <span>Connecting...</span>
                 </div>
             </div>
         </aside>
@@ -67,184 +87,256 @@
             <header class="main-header">
                 <div class="header-left">
                     <h1 id="page-title">Shortest Path Finder</h1>
+                    <div class="header-accent-line"></div>
                     <p class="header-breadcrumb" id="page-breadcrumb">Dijkstra's Algorithm · O((V+E) log V)</p>
                 </div>
                 <div class="network-stats">
-                    <div class="stat"><span class="stat-val" id="stat-nodes">—</span><span class="stat-label">NODES</span></div>
-                    <div class="stat"><span class="stat-val" id="stat-edges">—</span><span class="stat-label">EDGES</span></div>
+                    <div class="stat">
+                        <span class="stat-val" id="stat-nodes">—</span>
+                        <span class="stat-label">Nodes</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-val" id="stat-edges">—</span>
+                        <span class="stat-label">Edges</span>
+                    </div>
                 </div>
             </header>
 
             <div class="panels-wrapper">
                 <!-- Panel 1: Dijkstra -->
-                <div class="panel active" id="panel-dijkstra">
+                <section class="panel active" id="panel-dijkstra">
                     <div class="panel-grid">
                         <div class="panel-card">
+                            <div class="card-badge">O((V+E) log V)</div>
                             <div class="card-header"><h2>Route Configuration</h2></div>
                             <div class="card-body">
-                                <div class="field"><label>Origin</label><select id="sp-source"></select></div>
-                                <div class="field"><label>Destination</label><select id="sp-dest"></select></div>
+                                <div class="field">
+                                    <label for="sp-source">Origin</label>
+                                    <select id="sp-source"></select>
+                                </div>
+                                <div class="field">
+                                    <label for="sp-dest">Destination</label>
+                                    <select id="sp-dest"></select>
+                                </div>
                                 <div class="field">
                                     <label>Optimize By</label>
                                     <div class="radio-group">
-                                        <label class="radio-pill active"><input type="radio" name="sp-metric" value="distance" checked>Distance</label>
-                                        <label class="radio-pill"><input type="radio" name="sp-metric" value="time">Time</label>
-                                        <label class="radio-pill"><input type="radio" name="sp-metric" value="toll">Toll</label>
+                                        <label class="radio-pill active" data-value="distance"><input type="radio" name="sp-metric" value="distance" checked> Distance</label>
+                                        <label class="radio-pill" data-value="time"><input type="radio" name="sp-metric" value="time"> Time</label>
+                                        <label class="radio-pill" data-value="toll"><input type="radio" name="sp-metric" value="toll"> Toll</label>
                                     </div>
                                 </div>
-                                <button class="btn-primary" id="btn-dijkstra"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Find Optimal Route</button>
+                                <button class="btn-primary" id="btn-dijkstra">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    Find Optimal Route
+                                </button>
                             </div>
                         </div>
                         <div class="panel-card">
                             <div class="card-header"><h2>Route Result</h2></div>
                             <div class="card-body" id="res-dijkstra">
                                 <div class="empty-state">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".25"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
                                     <p>Select source &amp; destination, then calculate.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!-- Panel 2: MST -->
-                <div class="panel" id="panel-mst">
+                <section class="panel" id="panel-mst">
                     <div class="panel-grid">
                         <div class="panel-card">
+                            <div class="card-badge">O(E log E)</div>
                             <div class="card-header"><h2>MST Configuration</h2></div>
                             <div class="card-body">
                                 <div class="field">
                                     <label>Edge Weight Metric</label>
                                     <div class="radio-group">
-                                        <label class="radio-pill active"><input type="radio" name="mst-metric" value="distance" checked>Distance</label>
-                                        <label class="radio-pill"><input type="radio" name="mst-metric" value="time">Time</label>
-                                        <label class="radio-pill"><input type="radio" name="mst-metric" value="toll">Toll</label>
+                                        <label class="radio-pill active" data-value="distance"><input type="radio" name="mst-metric" value="distance" checked> Distance</label>
+                                        <label class="radio-pill" data-value="time"><input type="radio" name="mst-metric" value="time"> Time</label>
+                                        <label class="radio-pill" data-value="toll"><input type="radio" name="mst-metric" value="toll"> Toll</label>
                                     </div>
                                 </div>
-                                <div class="info-callout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Uses Union-Find (DSU) for efficient cycle detection during edge selection.</span></div>
-                                <button class="btn-primary" id="btn-mst"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg> Generate MST</button>
+                                <div class="info-callout">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                    <span>Uses Union-Find (DSU) for efficient cycle detection during edge selection.</span>
+                                </div>
+                                <button class="btn-primary" id="btn-mst">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+                                    Generate MST
+                                </button>
                             </div>
                         </div>
                         <div class="panel-card">
                             <div class="card-header"><h2>Spanning Tree Result</h2></div>
                             <div class="card-body" id="res-mst">
                                 <div class="empty-state">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".25"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                                     <p>Choose a metric and generate the MST.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!-- Panel 3: Toll -->
-                <div class="panel" id="panel-toll">
+                <section class="panel" id="panel-toll">
                     <div class="panel-grid panel-grid-3">
                         <div class="panel-card">
+                            <div class="card-badge">O(log n) update</div>
                             <div class="card-header"><h2>Update Toll</h2></div>
                             <div class="card-body">
-                                <div class="field"><label>Edge ID</label><input type="number" id="toll-edge-id" min="0" placeholder="0"></div>
-                                <div class="field"><label>New Toll (₹)</label><input type="number" id="toll-amount" min="0" step="0.1" placeholder="100"></div>
-                                <button class="btn-secondary" id="btn-toll-update"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Update Toll</button>
+                                <div class="field">
+                                    <label for="toll-edge-id">Edge ID</label>
+                                    <input type="number" id="toll-edge-id" min="0" placeholder="0">
+                                </div>
+                                <div class="field">
+                                    <label for="toll-amount">New Toll (₹)</label>
+                                    <input type="number" id="toll-amount" min="0" step="0.1" placeholder="150">
+                                </div>
+                                <button class="btn-secondary" id="btn-toll-update">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                    Update Toll
+                                </button>
                             </div>
                         </div>
                         <div class="panel-card">
+                            <div class="card-badge">O(log n) query</div>
                             <div class="card-header"><h2>Range Query</h2></div>
                             <div class="card-body">
-                                <div class="field"><label>Start Edge (L)</label><input type="number" id="toll-l" min="0" placeholder="0"></div>
-                                <div class="field"><label>End Edge (R)</label><input type="number" id="toll-r" min="0" placeholder="10"></div>
-                                <button class="btn-primary" id="btn-toll-query"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Query Sum</button>
+                                <div class="field">
+                                    <label for="toll-l">Start Edge (L)</label>
+                                    <input type="number" id="toll-l" min="0" placeholder="0">
+                                </div>
+                                <div class="field">
+                                    <label for="toll-r">End Edge (R)</label>
+                                    <input type="number" id="toll-r" min="0" placeholder="10">
+                                </div>
+                                <button class="btn-primary" id="btn-toll-query">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    Query Sum
+                                </button>
                             </div>
                         </div>
                         <div class="panel-card">
-                            <div class="card-header"><h2>Result</h2></div>
+                            <div class="card-header"><h2>Fenwick Tree Result</h2></div>
                             <div class="card-body" id="res-toll">
                                 <div class="empty-state">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".25"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
                                     <p>Update a toll or query a range.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!-- Panel 4: Bloom -->
-                <div class="panel" id="panel-bloom">
+                <section class="panel" id="panel-bloom">
                     <div class="panel-grid">
                         <div class="panel-card">
-                            <div class="card-header"><h2>Vehicle Lookup</h2></div>
+                            <div class="card-badge">O(k) per op</div>
+                            <div class="card-header"><h2>Vehicle Pass System</h2></div>
                             <div class="card-body">
-                                <div class="field"><label>Vehicle Number</label><input type="text" id="vehicle-id" placeholder="DL-1C-AA-1111"></div>
-                                <div class="btn-row">
-                                    <button class="btn-secondary" id="btn-bloom-add"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Record Pass</button>
-                                    <button class="btn-primary" id="btn-bloom-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Check Status</button>
+                                <div class="field">
+                                    <label for="vehicle-id">Vehicle Number Plate</label>
+                                    <input type="text" id="vehicle-id" placeholder="DL-1C-AA-1111">
                                 </div>
-                                <div class="info-callout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Bloom Filter: "Not found" is definitive. "Found" may be a false positive.</span></div>
+                                <div class="btn-row">
+                                    <button class="btn-secondary" id="btn-bloom-add">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                        Record Pass
+                                    </button>
+                                    <button class="btn-primary" id="btn-bloom-check">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                        Check Status
+                                    </button>
+                                </div>
+                                <div class="info-callout">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                    <span>Bloom Filter: "Not found" is definitive. "Found" may be a false positive.</span>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-card">
                             <div class="card-header"><h2>Tracking Result</h2></div>
                             <div class="card-body" id="res-bloom">
                                 <div class="empty-state">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="4" y="7" width="16" height="6" rx="1"/></svg>
-                                    <p>Enter a vehicle ID to check or record.</p>
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".25"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                                    <p>Enter a plate number and record or check it.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!-- Panel 5: Top-K -->
-                <div class="panel" id="panel-topk">
+                <section class="panel" id="panel-topk">
                     <div class="panel-grid">
                         <div class="panel-card">
+                            <div class="card-badge">O(E log E)</div>
                             <div class="card-header"><h2>Revenue Analytics</h2></div>
                             <div class="card-body">
-                                <div class="field"><label>Number of Top Segments (K)</label><input type="number" id="top-k-val" min="1" max="50" value="5"></div>
-                                <button class="btn-primary" id="btn-topk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg> Analyze Top-K</button>
+                                <div class="field">
+                                    <label for="top-k-val">Number of Top Segments (K)</label>
+                                    <input type="number" id="top-k-val" min="1" max="50" value="5">
+                                </div>
+                                <button class="btn-primary" id="btn-topk">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+                                    Analyze Top-K
+                                </button>
                             </div>
                         </div>
                         <div class="panel-card">
                             <div class="card-header"><h2>Highest Toll Segments</h2></div>
                             <div class="card-body" id="res-topk">
                                 <div class="empty-state">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".25"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
                                     <p>Set K and analyze the network revenue.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!-- Panel 6: Bellman-Ford -->
-                <div class="panel" id="panel-bellman">
+                <section class="panel" id="panel-bellman">
                     <div class="panel-grid">
                         <div class="panel-card">
+                            <div class="card-badge">O(V × E)</div>
                             <div class="card-header"><h2>Arbitrage Parameters</h2></div>
                             <div class="card-body">
                                 <div class="field">
-                                    <label>Fuel Savings per Segment (₹)</label>
+                                    <label for="fuel-savings">Fuel Savings per Segment (₹)</label>
                                     <input type="number" id="fuel-savings" value="50" min="0" step="0.1">
                                     <span class="field-hint">Weight = Toll − Savings. High values create negative edges.</span>
                                 </div>
-                                <div class="info-callout warn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>A negative cycle implies infinite fuel savings — an arbitrage loop in the network.</span></div>
-                                <button class="btn-primary" id="btn-bellman"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Run Detection</button>
+                                <div class="info-callout warn">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                    <span>A negative cycle implies infinite fuel savings — an arbitrage loop in the network.</span>
+                                </div>
+                                <button class="btn-primary" id="btn-bellman">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+                                    Run Detection
+                                </button>
                             </div>
                         </div>
                         <div class="panel-card">
                             <div class="card-header"><h2>Cycle Detection Result</h2></div>
                             <div class="card-body" id="res-bellman">
                                 <div class="empty-state">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".25"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                                     <p>Set fuel savings and detect negative cycles.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </main>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
